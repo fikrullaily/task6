@@ -8,7 +8,7 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
 
   const dispatch = useDispatch();
-  // const {products} = useSelector(state=>state.product) //bingung karna kalo di inspect ga muncul redux :(
+ const {products} = useSelector(state=>state.post) 
 
   useEffect(() => {
     dispatch(fetchproducts());
@@ -28,7 +28,7 @@ export default function Home() {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        {posts && posts.map(item => (   //mengira2 ikutin tutorial 
+        {products && products.map(item => (
           <h1 key={item}>{item}</h1>
         ))}
            
