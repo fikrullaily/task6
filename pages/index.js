@@ -1,10 +1,12 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { editProduct, addProduct } from '../store/actions/productAction'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import Product from './Product'
+import Header from '../component/header'
+import Footer from '../component/footer'
+
 
 export default function Home() {
 
@@ -53,7 +55,7 @@ export default function Home() {
       } else {
         dispatch( 
           addProduct({
-            id: uid(),
+            id: Update.id,
             title: userInput.title,
             price: userInput.price,
             description: userInput.description,
@@ -96,15 +98,19 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <h1>Input New Product</h1>
+        <Header />
+        <br />
+        <h2 className={styles.h2}>Input New Product</h2>
 
         <div>
             <form className={styles.formitem} >
               <label for="title">Title: </label>
               <input className={styles.input} name="title" placeholder="Title..." onChange={handleChange} value={userInput.title} />
           <span/>
-              <label for="price">Price: </label>
-              <input className={styles.input} name="quantity" placeholder="0" onChange={handleChange} value={userInput.price} />
+
+          <label for="price">Price: </label>
+          <input className={styles.input} type="number" name="price" placeholder="0" onChange={handleChange} value={userInput.price} />
+        
           <span/>
               <label for="description">Description: </label>
               <textarea className={styles.input} name="description" placeholder="Description..." onChange={handleChange} value={userInput.description} />
@@ -123,19 +129,7 @@ export default function Home() {
 
         <Product />
       
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <Footer />
     </div>
     </section>
   );
