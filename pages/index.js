@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { editProduct, addProduct } from '../store/actions/productAction'
 import styles from '../styles/Home.module.scss'
 import Product from './Product'
@@ -17,7 +17,7 @@ export default function Home() {
     title: "",
     price: "",
     description:"",
-    image: "",
+    // image: "",
     category: "",
   });
 
@@ -34,7 +34,7 @@ export default function Home() {
       (userInput.title === "",
       userInput.price === "",
       userInput.description === "",
-      userInput.image === "",
+      // userInput.image === "",
       userInput.category === "")
     ) {
       return false;
@@ -47,7 +47,7 @@ export default function Home() {
             title: userInput.title,
             price: userInput.price,
             description: userInput.description,
-            image: userInput.image,
+            // image: userInput.image,
             category: userInput.category,
           })
         );
@@ -59,7 +59,7 @@ export default function Home() {
             title: userInput.title,
             price: userInput.price,
             description: userInput.description,
-            image: userInput.image,
+            // image: userInput.image,
             category: userInput.category,
           })
         );
@@ -70,7 +70,7 @@ export default function Home() {
         title: "",
         price: "",
         description:"",
-        image: "",
+        // image: "",
         category: "",
       });
       setUpdate({ id:null, status: false });
@@ -81,11 +81,13 @@ export default function Home() {
         title: product.title,
         price: product.price,
         description: product.description,
-        image: product.image,
+        // image: product.image,
         category: product.category,
       });
       setUpdate({ id: product.id, status: true});
+      console.log(product.id);
     };
+    // const { product } = useSelector((state) => state.Products);
 
     //  const {products} = useSelector(state=>state.post)
 
@@ -115,8 +117,8 @@ export default function Home() {
               <label for="description">Description: </label>
               <textarea className={styles.input} name="description" placeholder="Description..." onChange={handleChange} value={userInput.description} />
           <span/>
-              <label for="image">Image: </label>
-              <input className={styles.input} name="image" placeholder="a image" onChange={handleChange} value={userInput.image} />
+              {/* <label for="image">Image: </label> */}
+              {/* <input className={styles.input} name="image" placeholder="a image" onChange={handleChange} value={userInput.image} /> */}
           <span/>
               <label for="category">Category: </label>
               <input className={styles.input} name="category" placeholder="Category.." onChange={handleChange} value={userInput.category} />
@@ -125,12 +127,12 @@ export default function Home() {
             </form>
         </div>
 
-        {/* {products && products.map((item) => <h1 key={item}>{item}</h1>)} */}
+        {/* { product && product.map((item) => <h1 key={item}>{item}</h1>)} */}
 
-        <Product />
+        <Product handleEdit={handleEdit} />
       
       <Footer />
     </div>
     </section>
-  );
-};
+  )
+}
