@@ -2,18 +2,17 @@ import * as types from '../types'
 const initialState ={
     products: [],
     product: {},
-    loading: true,
-    // error: null
+    loading: true, 
 }
 
-export const productReducer = (state = initialState, action) => {
+export default function productReducer (state = initialState, action) {
     switch (action.type) {
+
         case types.GET_PRODUCTS:
             return{
                 ...state,
                 products: action.payload,
                 loading: false,
-                
             };
         case types.ADD_PRODUCTS:
             return{
@@ -21,10 +20,14 @@ export const productReducer = (state = initialState, action) => {
                 products: state.products.concat(action.payload),
                 loading: false,
             };
-        case types.EDIT_PRODUCTS:
+        case types.EDIT_PRODUCTS:       //ini bingung karena ga muncul
             return{
                 ...state,
-                products: state.products.concat(action.payload),
+                products: state.products.map((product) =>
+                    Number(product.id) === Number(action.payload.id)
+                    ? (product = action.payload)
+                    : product
+                ),
                 loading: false,
             };
         case types.PRODUCTS_ERROR:
@@ -32,14 +35,21 @@ export const productReducer = (state = initialState, action) => {
                 loading:false,
                 error: action.payload,
             };
-        case types.DELETE_PRODUCTS:
-            return {
+        case types.DELETE_PRODUCTS:       //ini juga masih bingung
+            const filteredState = state.products.filter(
+                (product) => product.id !== action.payload.id
+            );
+            return { 
                 ...state,
-                loading: false
+                products: filteredState
             };
+            // return {
+            //     ...state,
+            //     loading: false
+            // };
             
         default:
-            return state
+            return state;
         
     }
 }
