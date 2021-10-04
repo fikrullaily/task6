@@ -2,22 +2,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, fetchproducts } from "../store/actions/productAction";
 import Image from "next/image";
+import styles from '../styles/Home.module.scss'
 
 const Product = (props) => {
     const { handleEdit } = props;
     const dispatch = useDispatch();
-    const  Products = useSelector((state) => state.Products);
-    // const { ProductsData } = useSelector((state) => state.Product);
-    const { loading, error, products } = Products;
+    const  ProductsData = useSelector((state) => state.Products);
+    const { loading, error, products } = ProductsData;
 
     useEffect(() => {
         dispatch(fetchproducts());
     }, []);
-
-    // const handleDelete = (id) => {
-    //     dispatch(deleteProduct(id));
-    //     alert("has been deleted");
-    // };
 
     return(
         <section className="getproduct">
@@ -26,28 +21,39 @@ const Product = (props) => {
                 : error
                 ? error.message
                 : products?.map((product) => (
-                    <div className="product">
-                    {/* <div className="image">
-                        <Image src={product.image} alt={product.image}
-                            width={200} height={250} />
-                    </div> */}
-                    <div className="text">
-                        <h3 key={product.id}>{product.title}</h3>
-                        <h4>$ {product.price}</h4>
-                        <p>{product.description}</p>
-                        <h4>{product.category}</h4>
+                    <div className={styles.col}>
+                       <div className={styles.cardHeader}>
+                           <h3>List Products</h3>
+                       </div>
+                       <table className={styles.list}>
+                       <thead className={styles.thead}>
+                           <tr className={styles.tr}>
+                               <th scope="col">Title</th>
+                               <th scope="col">Price</th>
+                               <th scope="col">Description</th>
+                               <th scope="col">Category</th>
+                               <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td key={product.id}>{product.title}</td>
+                            <td>$ {product.price}</td>
+                            <td>{product.description}</td>
+                            <td>{product.category}</td>
+                            <td>
+                                    <button onClick={() => handleEdit(product)}><img className={styles.btnEdit} src="../img/edit.png"/></button>
+                                    <button onClick={() => 
+                                    dispatch(
+                                        deleteProduct(product.id),
+                                        alert("Deleted Product " + product.title )
+                                    )    }><img className={styles.btnDelete} src="../img/delete.png" /></button>
+                                
+                            </td>
+                        </tbody>
+                        </table>
                     </div>
-                    <div>
-                        <button onClick={() => handleEdit(product)}>Edit</button>
-                        {/* <button onClick={() => handleDelete(product.id)}>Delete</button>    */}
-                        <button onClick={() => 
-                            dispatch(
-                                deleteProduct(product.id),
-                                alert("Deleted Product " + product.title )
-                            )    
-                        }>Delete</button>
-                    </div>
-                    </div>
+                    
+
                 ))}
         </section>
     );

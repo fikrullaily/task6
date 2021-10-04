@@ -41,7 +41,7 @@ export const editProduct = (product) => async (dispatch) => {
     try {
         await axios
             // .put(`https://fakestoreapi.com/products/${id}`, data)
-            .put(`https://fakestoreapi.com/products/${id}`, product)
+            .put(`https://fakestoreapi.com/products/${product.id}`, product)
             .then((res) => {
                 dispatch({
                     type: types.EDIT_PRODUCTS,
@@ -66,8 +66,8 @@ export const deleteProduct = (id) => async (dispatch) => {
                     type: types.DELETE_PRODUCTS,
                     payload: res.data,
                 });
-                dispatch(fetchproducts());
-                console.log(res);
+                // dispatch(fetchproducts());
+                console.log(res); //kalo projek console di hapus karen abiar nanti ga ke hack
             });
     } catch (error) {
         dispatch({
