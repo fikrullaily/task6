@@ -13,6 +13,10 @@ const Product = (props) => {
     useEffect(() => {
         dispatch(fetchproducts());
     }, []);
+    
+    const OpenPopUp = () => {
+        document.getElementById("simpleModal").style.display ='block';
+      }
 
     return(
         <section className="getproduct">
@@ -41,7 +45,7 @@ const Product = (props) => {
                             <td>{product.description}</td>
                             <td>{product.category}</td>
                             <td>
-                                    <button onClick={() => handleEdit(product)}><img className={styles.btnEdit} src="../img/edit.png"/></button>
+                                <button onClick={() => OpenPopUp(handleEdit(product))}><img className={styles.btnEdit} src="../img/edit.png"/></button>
                                     <button onClick={() => 
                                     dispatch(
                                         deleteProduct(product.id),
